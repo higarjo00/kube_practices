@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    role: nginx
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      role: nginx
+      tier: web
+  template:
+    metadata:
+      labels:
+        role: nginx
+        tier: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 8080
+# paste your node
+      nodeSelector:
+        kubernetes.io/hostname: gke-kube-test-cluster-default-pool-6bbc2f3e-mr4s
